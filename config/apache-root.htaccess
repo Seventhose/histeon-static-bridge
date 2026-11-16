@@ -1,0 +1,44 @@
+# BEGIN Static Bridge
+# Inserire questo blocco prima di BEGIN WordPress nel .htaccess del document root.
+# Le pagine di amministrazione e gli endpoint dinamici non passano mai da qui.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Pagine con form/nonce: devono continuare a essere renderizzate da WordPress.
+RewriteCond %{REQUEST_URI} !^/(?:iscriviti|contatti)(?:/|$) [NC]
+
+# Il frontend statico riguarda solo richieste anonime idempotenti.
+RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+RewriteCond %{HTTP_COOKIE} !wordpress_logged_in_ [NC]
+RewriteCond %{QUERY_STRING} ^$
+
+# File e superfici WordPress che devono restare normali.
+RewriteCond %{REQUEST_URI} !^/(?:wp-admin|wp-content|wp-includes|wp-json)(?:/|$) [NC]
+RewriteCond %{REQUEST_URI} !^/(?:wp-login|wp-cron|wp-comments-post|wp-signup|wp-activate|wp-mail|wp-trackback|xmlrpc)\.php(?:/|$) [NC]
+RewriteCond %{REQUEST_URI} !^/(?:[^/]*sitemap[^/]*\.(?:xml|xsl)|robots\.txt)$ [NC]
+RewriteCond %{REQUEST_URI} !^/(?:feed|comments/feed|.*?/feed)(?:/|$) [NC]
+
+# Home page.
+RewriteCond %{DOCUMENT_ROOT}/wp-content/static-bridge/current/index.html -f
+RewriteRule ^$ wp-content/static-bridge/current/index.html [END]
+
+# Pagine con permalink /foo/ o /foo/bar/.
+RewriteCond %{DOCUMENT_ROOT}/wp-content/static-bridge/current/$1/index.html -f
+RewriteRule ^(.+?)/?$ wp-content/static-bridge/current/$1/index.html [END]
+
+# Modalità rigorosa: dopo l'export una URL pubblica non pubblicata non deve
+# riattivare silenziosamente WordPress.
+RewriteCond %{DOCUMENT_ROOT}/wp-content/static-bridge/.strict -f
+RewriteCond %{REQUEST_METHOD} ^(?:GET|HEAD)$
+RewriteCond %{HTTP_COOKIE} !wordpress_logged_in_ [NC]
+RewriteCond %{QUERY_STRING} ^$
+RewriteCond %{REQUEST_URI} !^/(?:iscriviti|contatti)(?:/|$) [NC]
+RewriteCond %{REQUEST_URI} !^/(?:wp-admin|wp-content|wp-includes|wp-json)(?:/|$) [NC]
+RewriteCond %{REQUEST_URI} !^/(?:wp-login|wp-cron|wp-comments-post|wp-signup|wp-activate|wp-mail|wp-trackback|xmlrpc)\.php(?:/|$) [NC]
+RewriteCond %{REQUEST_URI} !^/(?:[^/]*sitemap[^/]*\.(?:xml|xsl)|robots\.txt)$ [NC]
+RewriteCond %{REQUEST_URI} !^/(?:feed|comments/feed|.*?/feed)(?:/|$) [NC]
+RewriteCond %{REQUEST_URI} !^/wp-content/static-bridge/ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ - [R=404,END]
+</IfModule>
+# END Static Bridge

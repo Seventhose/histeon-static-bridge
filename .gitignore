@@ -1,0 +1,19 @@
+# QA clones, database dumps, backups and disposable test stacks (very large; may hold site data).
+/work/
+# Local agent briefing with machine paths and site names.
+/CLAUDE-HANDOFF.md
+
+# Editor and OS files.
+.DS_Store
+*.swp
+*~
+.idea/
+.vscode/
+
+# Disposable end-to-end stacks (WordPress copies, MySQL datadirs, dumps, logs, cookies, salts)
+# built by tests/e2e/setup-stack.sh, and machine-specific harness overrides.
+/tests/e2e/stacks/
+/tests/e2e/local.env
+
+# Release signatures: sign-release.php writes them next to the ZIP in dist/; the user signs, they stay out of git.
+dist/*.minisig

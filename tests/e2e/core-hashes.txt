@@ -1,0 +1,10 @@
+# Verified source trees for setup-stack.sh: <key> <tree hash> (sha256 of the sorted "sha256  ./path" list of
+# the copied files, see tree_hash in setup-stack.sh). Taken on 2026-10-17 from the trees the 2.0.18 gates ran on.
+# wordpress-6.9: WordPress 6.9 release files (core + bundled Akismet, Hello Dolly, Twenty Twenty-Three/Four/Five).
+wordpress-6.9 558f64f8378d451f73e52095509a4e17d342cdcde75b83e468e4017721c79c54
+# wordpress-7.1.3-core: wp-admin, wp-includes and the root files only (wp-content stays the 6.9 one).
+wordpress-7.1.3-core be7d15a52680a6363c622df1c46665451a78e88c412aeda4eb794e7d57c97f0c
+# fluentform-6.2.15: the whole plugin folder.
+fluentform-6.2.15 a1cb0b1679e253344c4b6fcd3458934e9ea86e5e3b926d52130f87887950d277
+# woocommerce-11.2.2: the whole plugin folder (taken 2026-11-08 from the LocalWP copy the WooCommerce gate ran on).
+woocommerce-11.2.2 19ab33de68512a5bb087eecb4a66ad245b287e7918af33c6879b0515144328f5
