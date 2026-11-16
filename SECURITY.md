@@ -16,7 +16,7 @@ Solo l'ultima release. Le versioni precedenti non ricevono correzioni: aggiorna.
 
 ## Cosa è una falla
 
-Il modello di sicurezza del plugin è in `docs/SECURITY.md`, nei sorgenti allegati a ogni release. In breve:
+Il modello di sicurezza del plugin è in [docs/SECURITY.md](docs/SECURITY.md). In breve:
 
 - chi ha meno permessi riesce a fare ciò che il suo ruolo non permette;
 - contenuto salvato da un utente che esegue codice nel browser di un altro (XSS);
